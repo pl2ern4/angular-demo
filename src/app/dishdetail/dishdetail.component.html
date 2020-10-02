@@ -18,7 +18,7 @@
         </mat-card>
     </div>
 </div>
-<div class="container" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column"
+<div *ngIf="dish" class="container" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column"
     fxLayoutAlign.gt-md="space-around center" fxLayoutGap="30px" fxLayoutGap.xs="0">
     <div class="comment-section" fxFlex>
         <h3>Comments</h3>
