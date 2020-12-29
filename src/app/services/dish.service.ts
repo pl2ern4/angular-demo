@@ -10,8 +10,9 @@ export class DishService {
 
   constructor() { }
 
-  getDish(id: string): Dish {
-    return DISHES.filter((dish) => (dish.id == id))[0];
+  getDish(): Dish {
+    return DISHES[0];
+    // return DISHES.filter((dish) => (dish.id == id))[0];
   }
 
   getFeaturedDish(): Dish {
