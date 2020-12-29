@@ -10,8 +10,8 @@ export class DishService {
 
   constructor() { }
 
-  getDish(): Dish {
-    return DISHES[0];
+  getDishes(): Dish[] {
+    return DISHES;
     // return DISHES.filter((dish) => (dish.id == id))[0];
   }
 
