@@ -33,7 +33,7 @@
     <div class="comment-section" fxFlex>
         <h3>Comments</h3>
         <mat-list dense>
-            <mat-list-item *ngFor="let comment of dish.comments">
+            <mat-list-item *ngFor="let comment of comments">
                 <p matLine>{{comment.comment}}</p>
                 <p matLine>{{comment.rating}} Stars</p>
                 <p matLine>--
@@ -42,18 +42,22 @@
                 </p>
             </mat-list-item>
         </mat-list>
-        <form [formGroup]="commentForm" #fform="ngForm">
+        <form [formGroup]="commentForm" #fform="ngForm" (ngSubmit)="handleSubmit()">
             <p>
                 <mat-form-field class="full-width">
-                    <input matInput formControlName="name" placeholder="Name" required>
+                    <input matInput formControlName="author" placeholder="Name" required>
+                    <mat-error *ngIf="formErrors.author">{{formErrors.author}}</mat-error>
                 </mat-form-field>
             </p>
             <p>
-                <mat-slider #ratings [value]="rating" (change)="updateSetting($event)" step="1" min="0" max="5"></mat-slider>
+                <mat-slider formControlName="rating" [value]="rating" (change)="updateSetting($event)" step="1" min="0"
+                    max="5"></mat-slider>
+
             </p>
             <p>
                 <mat-form-field class="full-width">
                     <textarea matInput formControlName="comment" placeholder="Your Feedback" rows=12></textarea>
+                    <mat-error *ngIf="formErrors.comment">{{formErrors.comment}}</mat-error>
                 </mat-form-field>
             </p>
             <button type="submit" mat-button class="background-primary text-floral-white">Submit</button>
