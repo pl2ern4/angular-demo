@@ -1,5 +1,5 @@
 <div fxFlex="40">
-    <div *ngIf="dish">
+    <div fxFlex *ngIf="dish">
         <mat-card>
             <mat-card-header>
                 <mat-card-title>
@@ -17,6 +17,9 @@
             </mat-card-actions>
         </mat-card>
     </div>
+    <div [hidden]="dish">
+        <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
+      </div>
 </div>
 <div *ngIf="dish" class="container" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column"
     fxLayoutAlign.gt-md="space-around center" fxLayoutGap="30px" fxLayoutGap.xs="0">
