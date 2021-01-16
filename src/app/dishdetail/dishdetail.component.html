@@ -42,7 +42,7 @@
                 </p>
             </mat-list-item>
         </mat-list>
-        <form [formGroup]="commentForm" #fform="ngForm" (ngSubmit)="handleSubmit()">
+        <form [formGroup]="commentForm" #commentDirective="ngForm" (ngSubmit)="handleSubmit()">
             <p>
                 <mat-form-field class="full-width">
                     <input matInput formControlName="author" placeholder="Name" required>
@@ -60,7 +60,7 @@
                     <mat-error *ngIf="formErrors.comment">{{formErrors.comment}}</mat-error>
                 </mat-form-field>
             </p>
-            <button type="submit" mat-button class="background-primary text-floral-white">Submit</button>
+            <button [disabled]="commentForm.invalid" type="submit" mat-button class="background-primary text-floral-white">Submit</button>
         </form>
     </div>
     <div>

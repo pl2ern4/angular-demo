@@ -4,7 +4,7 @@ import { DishService } from '../services/dish.service';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Params } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatSliderChange } from '@angular/material';
 import { Comment } from '../shared/comment';
 
@@ -22,7 +22,8 @@ export class DishdetailComponent implements OnInit {
   commentForm: FormGroup;
   comments: Comment[];
   rating: number;
-  @ViewChild('fform') commentFormDirective;
+  @ViewChild('commentDirective') commentFormDirective;
+
   constructor(private fb: FormBuilder, private dishservice: DishService, private route: ActivatedRoute, private location: Location) {
     this.createForm();
   }
@@ -36,10 +37,6 @@ export class DishdetailComponent implements OnInit {
 
   }
 
-  updateSetting(event: MatSliderChange) {
-    console.log(event);
-  }
-
   createForm(): void {
     this.commentForm = this.fb.group({
       author: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
@@ -50,6 +47,7 @@ export class DishdetailComponent implements OnInit {
       .subscribe(data => this.onValueChanged(data));
     this.onValueChanged();
   }
+
   onValueChanged(data?: any) {
     if (!this.commentForm) { return; }
     const form = this.commentForm;
@@ -85,16 +83,20 @@ export class DishdetailComponent implements OnInit {
       'minlength': 'Comment should be atleast 10 character long.'
     }
   };
-  value
+  
   setPrevNext(dishId: string) {
     const index = this.dishIds.indexOf(dishId);
     this.prev = this.dishIds[(this.dishIds.length + index - 1) % this.dishIds.length];
     this.next = this.dishIds[(this.dishIds.length + index + 1) % this.dishIds.length];
   }
-  handleSubmit() {
+  handleSubmit(): void {
     const formValues = this.commentForm.value;
     this.comments.push({ ...formValues, date: new Date().toISOString() })
-    this.commentForm.reset();
-    this.commentFormDirective.reset();
+    this.commentForm.reset({
+      author: '',
+      comment: '',
+      rating: ''
+    });
+    this.commentFormDirective.resetForm();
   }
 }
